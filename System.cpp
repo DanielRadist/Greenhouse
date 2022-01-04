@@ -192,10 +192,11 @@ SystemDirector* SystemDirector::Instance()
 
 void SystemDirector::makeSystemSensor(SystemBuilder* builder)
 {
-	builder->makeTemperature(3);
+	builder->makeTemperature(1);
 	builder->makeLight(1);
 	builder->makeHumidity(1);
-	builder->makeCO2(2);
+	builder->makeSoilHumidity(1);
+	builder->makeCO2(1);
 }
 
 void SystemDirector::makeSystemControl(SystemBuilder* builder)

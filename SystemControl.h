@@ -1,6 +1,7 @@
 #pragma once
 #include "DeviceControl.h"
 #include <vector>
+#include <list>
 
 class Iterator
 {
@@ -49,6 +50,8 @@ public:
 	DeviceControl* search(TypeDevice typeDevice);
 
 	Iterator* createIterator();
+
+	void solution(list<pair<TypeDevice, TypeStatus>> solut);
 
 private:
 	vector<DeviceControl*> listDevice;

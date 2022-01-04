@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="DeviceControl.cpp" />
+    <ClCompile Include="MainSystem.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemControl.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DeviceControl.h" />
+    <ClInclude Include="MainSystem.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemControl.h" />

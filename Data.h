@@ -65,6 +65,25 @@ public:
 		}
 	}
 
+	void setData(TypeDevice type, int value)
+	{
+		switch (type)
+		{
+		case TypeDevice::TEMPERATURE:
+			temperature = value;
+		case TypeDevice::LIGHT:
+			light = value;
+		case TypeDevice::HUMIDITY:
+			humidity = value;
+		case TypeDevice::CO2:
+			co2 = value;
+		case TypeDevice::SOILHUMIDITY:
+			soilHumidity = value;
+		default:
+			return;
+		}
+	}
+
 private:
 
 	int temperature;

@@ -1,4 +1,5 @@
 #include "SystemControl.h"
+#include <iostream>
 
 DeviceControlIterator::DeviceControlIterator(vector<DeviceControl*>* listDevice)
 {
@@ -44,7 +45,7 @@ DeviceControl* SystemControl::search(TypeDevice typeDevice)
 {
 	Iterator* iter = createIterator();
 	DeviceControl* rtrn = nullptr;
-	while (iter->hasNext())			// пока не прошли все эл-ты
+	while (true)			// пока не прошли все эл-ты
 	{
 		if (iter->getCurrent()->getType() == typeDevice)
 		{
@@ -54,6 +55,8 @@ DeviceControl* SystemControl::search(TypeDevice typeDevice)
 
 		if (iter->hasNext())
 			iter->next();
+		else
+			break;
 	}
 	delete iter;
 	return rtrn;
@@ -63,4 +66,17 @@ DeviceControl* SystemControl::search(TypeDevice typeDevice)
 Iterator* SystemControl::createIterator()
 {
 	return new DeviceControlIterator(&listDevice);
+}
+
+void SystemControl::solution(list<pair<TypeDevice, TypeStatus>> solut)
+{
+	while (solut.size() != 0)
+	{
+		if (solut.front().second == TypeStatus::ON)
+			std::cout << search(solut.front().first)->on();
+		else
+			std::cout << search(solut.front().first)->off();
+
+		solut.pop_front();
+	}
 }

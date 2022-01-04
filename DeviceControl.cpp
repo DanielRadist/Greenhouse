@@ -113,18 +113,34 @@ DeviceControl::DeviceControl(TypeDevice typeControl, DeviceControl* SubDevice)
 
 string DeviceControl::on()
 {
-    string msg = state->on();
-    delete state;
-    state = new ONState(control);
-    return msg;
+    string msg = "";
+    if (state->get() == TypeStatus::ON)
+    {
+        msg += string(getStatusToStr());
+    }
+    else
+    {
+        msg += string(state->on());
+        delete state;
+        state = new ONState(control);
+    }
+    return msg + '\n';
 }
 
 string DeviceControl::off()
 {
-    string msg = state->off();
-    delete state;
-    state = new OFFState(control);
-    return msg;
+    string msg = "";
+    if (state->get() == TypeStatus::OFF)
+    {
+        msg += string(getStatusToStr());
+    }
+    else
+    {
+        msg += string(state->off());
+        delete state;
+        state = new OFFState(control);
+    }
+    return msg + '\n';
 }
 
 TypeDevice DeviceControl::getType()
