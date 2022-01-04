@@ -143,12 +143,15 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="DeviceControl.cpp" />
     <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="DeviceControl.h" />
     <ClInclude Include="Sensor.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="SystemControl.h" />
     <ClInclude Include="TypeDevice.h" />
   </ItemGroup>
