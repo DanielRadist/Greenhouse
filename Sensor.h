@@ -1,5 +1,6 @@
 #pragma once
 #include "TypeDevice.h"
+#include "Data.h"
 #include <map>
 #include <list>
 #include <tuple>
@@ -33,7 +34,13 @@ public:
 	
 	void remove(ISensor* Sensor);
 
+	DataClimat getDataClimat(); 
+
 	void getData(std::map<TypeDevice, float>& data);
+
+	void setData(int value);
+
+	std::list<ISensor*> getListSensor();
 
 protected:
 

@@ -3,6 +3,7 @@
 ISensor::ISensor(TypeDevice type)
 {
 	this->type = type;
+	this->data = INT_FAST32_MIN;
 }
 
 int ISensor::getData()
@@ -57,6 +58,15 @@ void SystemSensor::remove(ISensor* Sensor)
 	//TODO::
 }
 
+DataClimat SystemSensor::getDataClimat()
+{
+	std::map<TypeDevice, float> data;
+
+	getData(data);
+
+	return new DataClimat(data);
+}
+
 void SystemSensor::getData(std::map<TypeDevice, float>& data)
 {
 	std::map<TypeDevice, std::pair<int, int>> buffData;
@@ -68,6 +78,17 @@ void SystemSensor::getData(std::map<TypeDevice, float>& data)
 			(float((*it).second.first) / (*it).second.second)
 		));
 	}
+}
+
+void SystemSensor::setData(int value)
+{
+	for (auto it = listDevice.begin(); it != listDevice.end(); it++)
+		(*it)->setData(value--);
+}
+
+std::list<ISensor*> SystemSensor::getListSensor()
+{
+	return listDevice;
 }
 
 void SystemSensor::getData(std::map<TypeDevice, std::pair<int, int>>& data)

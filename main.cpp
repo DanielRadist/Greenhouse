@@ -1,8 +1,12 @@
 ﻿#include <iostream>
 #include <vector>
-#include "TypeDevice.h"
+
+#include "Data.h"
+
 #include "Sensor.h"
 #include "SystemControl.h"
+
+#include "System.h"
 
 using namespace std;
 
@@ -148,6 +152,56 @@ void demoIterator()
             break;
     }
 }
+// Демонстрация работы Билдера и Одиночки и Прототип
+void demoBuilder()
+{
+    cout << "1" << endl;
+    SystemDirector* dir; 
+    dir = SystemDirector::Instance();                               // создаем директора
+
+    SystemControlBuilder* sysCtrlBuild = new SystemControlBuilder();// создаем билдера по созданию системы контроля климата
+    cout << "Create SystemControlBuilder " << endl;
+    cout << "~Make start SystemControl " << endl;
+    dir->makeSystemControl(sysCtrlBuild);                           // передаем директору билдера
+    cout << "~Make end SystemControl " << endl;
+
+    cout << "2" << endl;
+    dir = SystemDirector::Instance();                               // вызываем директора
+    SystemSensorBuilder* sysSensBuild = new SystemSensorBuilder();  // аналогично с датчиками климата
+    cout << "Create SystemSensorBuilder " << endl;
+    cout << "~Make start SystemSensor " << endl;
+    dir->makeSystemSensor(sysSensBuild);
+    cout << "~Make end SystemSensor " << endl;
+
+    cout << "3" << endl;
+    SystemSensor* sysSens = sysSensBuild->getResult();
+    SystemControl* sysCtrl = sysCtrlBuild->getResult();
+
+    list<ISensor*> listSens = sysSens->getListSensor();             // получаем объекты-сенсоры, чтобы задать значение
+    int valueData = 20;
+    for (auto it = listSens.begin(); it != listSens.end(); it++)
+        (*it)->setData(valueData++);
+
+    DataClimat dataClimat = sysSens->getDataClimat();               
+    cout << "Average temperature: " << to_string(dataClimat.getData(TypeDevice::TEMPERATURE)) << endl;
+    cout << "Average humidity: " << to_string(dataClimat.getData(TypeDevice::HUMIDITY)) << endl;
+    cout << "Average light: " << to_string(dataClimat.getData(TypeDevice::LIGHT)) << endl;
+    cout << "Average co2: " << to_string(dataClimat.getData(TypeDevice::CO2)) << endl;
+
+    cout << "4" << endl;
+    DataClimat tmp = dataClimat.clone();
+
+    cout << "Average temperature (tmp): " << to_string(tmp.getData(TypeDevice::TEMPERATURE)) << endl;
+    cout << "Average humidity (tmp): " << to_string(tmp.getData(TypeDevice::HUMIDITY)) << endl;
+    cout << "Average light (tmp): " << to_string(tmp.getData(TypeDevice::LIGHT)) << endl;
+    cout << "Average co2 (tmp): " << to_string(tmp.getData(TypeDevice::CO2)) << endl;
+}
+
+// Демонстрация работы фабричного метода
+void demoFactoryMethod()
+{
+
+}
 
 class IProFile
 {
@@ -239,18 +293,10 @@ void demoProxy()
 
 int main()
 {
-    //demoDelegat();
-    demoDecorator();
-    
-    cout << endl << endl;
-
-    demoComposit();
+    demoBuilder();
 
     cout << endl << endl;
 
-    demoIterator();
-
-    //demoProxy();
 
     return 0;
 }
