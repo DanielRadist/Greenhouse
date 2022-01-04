@@ -1,10 +1,20 @@
 #pragma once
 #include <vector>
 
-#include "Sensor.h"
-#include "SystemControl.h"
+#include "TypeDevice.h"
 
 
+// Factory method
+class ISystem
+{
+public:
+	virtual void add(TypeDevice type) = 0;
+
+	// TODO: virtual void remove(TypeDevice type) = 0;
+};
+
+// Builder 
+/*
 class SystemBuilder
 {
 public:
@@ -74,4 +84,4 @@ private:
 	static SystemDirector* _instance;
 };
 
-
+*/

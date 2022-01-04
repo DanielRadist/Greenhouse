@@ -29,7 +29,12 @@ DeviceControl* DeviceControlIterator::getCurrent()
 	return (*listDevice)[currentDevice];
 }
 
-
+//for Factory method
+void SystemControl::add(TypeDevice type)
+{
+	listDevice.push_back(new DeviceControl(type));
+}
+/*
 void SystemControl::add(DeviceControl* Device)
 {
 	listDevice.push_back(Device);
@@ -38,7 +43,7 @@ void SystemControl::add(DeviceControl* Device)
 void SystemControl::remove(DeviceControl* Device)
 {
 	//TODO:
-}
+}*/
 
 void SystemControl::search(TypeDevice typeDevice)
 {

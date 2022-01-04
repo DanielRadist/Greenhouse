@@ -6,10 +6,12 @@
 #include "Sensor.h"
 #include "SystemControl.h"
 
-#include "System.h"
+#include "Creator.h"
+//#include "System.h"
 
 using namespace std;
 
+/*
 // Демонстрация делегата и адаптера для ControlWindow
 void demoDelegat()
 {
@@ -151,7 +153,8 @@ void demoIterator()
         else
             break;
     }
-}
+}*/
+/*
 // Демонстрация работы Билдера и Одиночки и Прототип
 void demoBuilder()
 {
@@ -196,11 +199,19 @@ void demoBuilder()
     cout << "Average light (tmp): " << to_string(tmp.getData(TypeDevice::LIGHT)) << endl;
     cout << "Average co2 (tmp): " << to_string(tmp.getData(TypeDevice::CO2)) << endl;
 }
-
+*/
 // Демонстрация работы фабричного метода
 void demoFactoryMethod()
 {
+    cout << "1" << endl;
+    ICreator* sysSensCrt = new SystemSensorCreator();
+    ICreator* sysCtrlCrt = new SystemControlCreator();
 
+    cout << "2" << endl;
+    ISystem* sysSens = sysSensCrt->createSystem();
+
+    cout << "3" << endl;
+    ISystem* sysCtrl = sysCtrlCrt->createSystem();
 }
 
 class IProFile
@@ -293,7 +304,7 @@ void demoProxy()
 
 int main()
 {
-    demoBuilder();
+    demoFactoryMethod();
 
     cout << endl << endl;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "TypeDevice.h"
 #include "Data.h"
+#include "System.h"
 #include <map>
 #include <list>
 #include <tuple>
@@ -25,12 +26,13 @@ protected:
 };
 
 
-class SystemSensor : public ISensor
+class SystemSensor : public ISensor, public ISystem
 {
 public:
 	SystemSensor();
 	
-	void add(ISensor* Sensor);
+	//void add(ISensor* Sensor);
+	void add(TypeDevice type);		//for FactoryMethod
 	
 	void remove(ISensor* Sensor);
 

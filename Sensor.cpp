@@ -1,5 +1,7 @@
 #include "Sensor.h"
 
+#include <iostream>
+
 ISensor::ISensor(TypeDevice type)
 {
 	this->type = type;
@@ -44,13 +46,39 @@ TypeDevice ISensor::getType()
 }
 
 
-SystemSensor::SystemSensor() : ISensor(TypeDevice::SYSTEM)
+SystemSensor::SystemSensor() : ISensor(TypeDevice::SYSTEM), ISystem()
 {
 }
 
+/*
 void SystemSensor::add(ISensor* Sensor)
 {
 	listDevice.push_back(Sensor);
+}*/
+
+void SystemSensor::add(TypeDevice type)
+{
+	switch (type)
+	{
+	case TypeDevice::TEMPERATURE:
+		std::cout << "Connect sensor Temparature" << std::endl;
+		listDevice.push_back(new SensorTemperature());
+		break;
+	case TypeDevice::LIGHT:
+		std::cout << "Connect sensor Light" << std::endl;
+		listDevice.push_back(new SensorLight());
+		break;
+	case TypeDevice::HUMIDITY:
+		std::cout << "Connect sensor Humidity" << std::endl;
+		listDevice.push_back(new SensorHumidity());
+		break;
+	case TypeDevice::CO2:
+		std::cout << "Connect sensor CO2" << std::endl;
+		listDevice.push_back(new SensorCO2());
+		break;
+	default:
+		break;
+	}
 }
 
 void SystemSensor::remove(ISensor* Sensor)

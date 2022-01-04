@@ -1,6 +1,8 @@
 #include "System.h"
 #include <iostream>
 
+
+/*
 SystemSensorBuilder::SystemSensorBuilder()
 {
 	sysSens = new SystemSensor();
@@ -208,3 +210,4 @@ void SystemDirector::makeSystemControl(SystemBuilder* builder)
 }
 
 SystemDirector* SystemDirector::_instance = nullptr;
+*/

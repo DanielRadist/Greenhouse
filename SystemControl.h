@@ -1,5 +1,6 @@
 #pragma once
 #include "DeviceControl.h"
+#include "System.h"
 #include <vector>
 
 class Iterator
@@ -39,12 +40,15 @@ public:
 	virtual Iterator* createIterator() = 0;
 };
 
-class SystemControl : public IControlCollection
+class SystemControl : public ISystem, public IControlCollection
 {
 public:
-	void add(DeviceControl* Device);
+	//void add(DeviceControl* Device);
 
-	void remove(DeviceControl* Device);
+	//for Factory method
+	void add(TypeDevice type);
+
+	//void remove(DeviceControl* Device);
 
 	void search(TypeDevice typeDevice);
 
