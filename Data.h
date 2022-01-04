@@ -25,6 +25,7 @@ public:
 		this->co2 = data->co2;
 		this->light = data->light;
 		this->humidity = data->humidity;
+		this->soilHumidity = data->soilHumidity;
 	}
 
 	DataClimat(std::map<TypeDevice, float> data)
@@ -33,6 +34,7 @@ public:
 		this->co2 = data[TypeDevice::CO2];
 		this->light = data[TypeDevice::LIGHT];
 		this->humidity = data[TypeDevice::HUMIDITY];
+		this->soilHumidity = data[TypeDevice::SOILHUMIDITY];
 	}
 
 	DataClimat()
@@ -41,6 +43,7 @@ public:
 		this->co2 = -1;
 		this->light = -1;
 		this->humidity = -1;
+		this->soilHumidity = -1;
 	}
 
 	int getData(TypeDevice type)
@@ -55,6 +58,8 @@ public:
 			return humidity;
 		case TypeDevice::CO2:
 			return co2;
+		case TypeDevice::SOILHUMIDITY:
+			return soilHumidity;
 		default:
 			return -2;
 		}
@@ -66,4 +71,5 @@ private:
 	int light;
 	int co2;
 	int humidity;
+	int soilHumidity;
 };
