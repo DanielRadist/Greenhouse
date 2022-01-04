@@ -9,7 +9,7 @@
 #include "System.h"
 
 using namespace std;
-
+/*
 // Демонстрация делегата и адаптера для ControlWindow
 void demoDelegat()
 {
@@ -40,10 +40,10 @@ void demoDecorator()
     DeviceControl* winCtrl = new DeviceControl(TypeDevice::WINDOW);
 
     //Connect Humidity and Decor (humCtrl /=> winCtrl)
-    DeviceControl* humCtrl = new DeviceControl(TypeDevice::HUMIDITY, winCtrl);
+    DeviceControl* humCtrl = new DeviceControl(TypeDevice::HUMIDITY);
 
     //Connect CO2 and Decor (humCtrl /=> winCtrl)
-    DeviceControl* co2Ctrl = new DeviceControl(TypeDevice::CO2, winCtrl);
+    DeviceControl* co2Ctrl = new DeviceControl(TypeDevice::CO2);
 
     cout << "1:" << endl;
     cout << winCtrl->on() << endl;
@@ -114,10 +114,10 @@ void demoIterator()
     DeviceControl* winCtrl = new DeviceControl(TypeDevice::WINDOW);
 
     //Connect Humidity and Decor (humCtrl /=> winCtrl)
-    DeviceControl* humCtrl = new DeviceControl(TypeDevice::HUMIDITY, winCtrl);
+    DeviceControl* humCtrl = new DeviceControl(TypeDevice::HUMIDITY);
 
     //Connect CO2 and Decor (humCtrl /=> winCtrl)
-    DeviceControl* co2Ctrl = new DeviceControl(TypeDevice::CO2, winCtrl);
+    DeviceControl* co2Ctrl = new DeviceControl(TypeDevice::CO2);
 
     //Connect light control
     DeviceControl* lightCtrl = new DeviceControl(TypeDevice::LIGHT);
@@ -151,7 +151,7 @@ void demoIterator()
         else
             break;
     }
-}
+}*/
 // Демонстрация работы Билдера и Одиночки и Прототип
 void demoBuilder()
 {
@@ -197,10 +197,38 @@ void demoBuilder()
     cout << "Average co2 (tmp): " << to_string(tmp.getData(TypeDevice::CO2)) << endl;
 }
 
-// Демонстрация работы фабричного метода
-void demoFactoryMethod()
+void demoState()
 {
+    cout << "1" << endl;
+    SystemDirector* dir;
+    dir = SystemDirector::Instance();                               // создаем директора
 
+    SystemControlBuilder* sysCtrlBuild = new SystemControlBuilder();// создаем билдера по созданию системы контроля климата
+    dir->makeSystemControl(sysCtrlBuild);                           // передаем директору билдера
+    SystemControl* sysCtrl = sysCtrlBuild->getResult();             // получаем собраную систему контроля
+
+
+    cout << "2" << endl;
+    cout << "status: " << sysCtrl->search(TypeDevice::TEMPERATURE)->getStatusToStr() << endl;
+
+    //включение
+    cout << sysCtrl->search(TypeDevice::TEMPERATURE)->on() << endl;
+    cout << "status: " << sysCtrl->search(TypeDevice::TEMPERATURE)->getStatusToStr() << endl;
+    //включение включенного -> ошибка
+    cout << sysCtrl->search(TypeDevice::TEMPERATURE)->on() << endl; 
+
+
+    cout << "3" << endl;
+    cout << "status: " << sysCtrl->search(TypeDevice::SOILHUMIDITY)->getStatusToStr() << endl;
+
+    // включение
+    cout << sysCtrl->search(TypeDevice::SOILHUMIDITY)->on() << endl;
+    cout << "status: " << sysCtrl->search(TypeDevice::SOILHUMIDITY)->getStatusToStr() << endl;
+    //выключение 
+    cout << sysCtrl->search(TypeDevice::SOILHUMIDITY)->off() << endl;
+    cout << "status: " << sysCtrl->search(TypeDevice::SOILHUMIDITY)->getStatusToStr() << endl;
+    //выключение выключенного ->ошибка
+    cout << sysCtrl->search(TypeDevice::SOILHUMIDITY)->off() << endl;
 }
 
 class IProFile
@@ -293,7 +321,7 @@ void demoProxy()
 
 int main()
 {
-    demoBuilder();
+    demoState();
 
     cout << endl << endl;
 

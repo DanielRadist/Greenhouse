@@ -46,7 +46,7 @@ public:
 
 	void remove(DeviceControl* Device);
 
-	void search(TypeDevice typeDevice);
+	DeviceControl* search(TypeDevice typeDevice);
 
 	Iterator* createIterator();
 

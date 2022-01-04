@@ -4,6 +4,49 @@
 #include "DeviceControl.h"
 #include "Control.h"
 
+
+ONState::ONState(IControl* control)
+{
+    this->control = control;
+}
+
+string ONState::on()
+{
+    return string("Error! is On ") + control->getTypeToStr();
+}
+
+string ONState::off()
+{
+    return string("Device control - Off: ") + control->off();
+}
+
+TypeStatus ONState::get()
+{
+    return TypeStatus::ON;
+}
+
+
+OFFState::OFFState(IControl* control)
+{
+    this->control = control;
+}
+
+string OFFState::on()
+{
+    return string("Device control - On: ") + control->on();
+}
+
+string OFFState::off()
+{
+    return string("Error! is Off: ") + control->getTypeToStr();
+}
+
+TypeStatus OFFState::get()
+{
+    return TypeStatus::OFF;
+}
+
+
 DeviceControl::DeviceControl(TypeDevice typeControl)
 {
     switch (typeControl)
@@ -18,6 +61,22 @@ DeviceControl::DeviceControl(TypeDevice typeControl)
         std::cout << "Connect temperature control " << std::endl;
         break;
 
+    case TypeDevice::HUMIDITY:
+        this->control = new ControlHumidity();
+        std::cout << "Connect humidity control " << std::endl;
+        break;
+
+    case TypeDevice::SOILHUMIDITY:
+        this->control = new ControlSoilHumidity();
+        std::cout << "Connect soil humidity control " << std::endl;
+        break;
+
+    case TypeDevice::CO2:
+        this->control = new ControlCO2();
+        std::cout << "Connect CO2 control " << std::endl;
+        break;
+
+
     case TypeDevice::WINDOW:
     {
         ControlWindow* window = new ControlWindow();            // объект класса контроллера окна
@@ -26,14 +85,16 @@ DeviceControl::DeviceControl(TypeDevice typeControl)
         break;
     }
 
-    //TODO: SoilHum
 
     default:
         this->control = nullptr;
         break;
     }
+
+    state = new OFFState(control);                              // изначально выключен
 }
 
+/*
 DeviceControl::DeviceControl(TypeDevice typeControl, DeviceControl* SubDevice)
 {
     switch (typeControl)
@@ -48,22 +109,22 @@ DeviceControl::DeviceControl(TypeDevice typeControl, DeviceControl* SubDevice)
         std::cout << "Connect CO2 control " << std::endl;
         break;
     }
-}
+}*/
 
 string DeviceControl::on()
 {
-    if (getStatus() == TypeStatus::OFF)
-        return control->on();
-    else
-        return "Attention! The device is already on! ";
+    string msg = state->on();
+    delete state;
+    state = new ONState(control);
+    return msg;
 }
 
 string DeviceControl::off()
 {
-    if (getStatus() == TypeStatus::ON)
-        return control->off();
-    else
-        return "Attention! The device is already off! ";
+    string msg = state->off();
+    delete state;
+    state = new OFFState(control);
+    return msg;
 }
 
 TypeDevice DeviceControl::getType()
@@ -73,10 +134,20 @@ TypeDevice DeviceControl::getType()
 
 TypeStatus DeviceControl::getStatus()
 {
-    return control->getStatus();
+    return state->get();
+}
+
+string DeviceControl::getStatusToStr()
+{
+    if (state->get() == TypeStatus::ON)
+        return control->getTypeToStr() + "On ";
+    else
+        return control->getTypeToStr() + "Off ";
 }
 
 DeviceControl::~DeviceControl()
 {
     delete control;
 }
+
+

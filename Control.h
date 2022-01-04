@@ -11,7 +11,7 @@ class IControl
 {
 protected:
     TypeDevice type;
-    TypeStatus status;
+
 public:
 
     IControl(TypeDevice type);
@@ -20,7 +20,8 @@ public:
     virtual string off() = 0;
 
     TypeDevice getType();
-    TypeStatus getStatus();
+
+    string getTypeToStr();
 };
 
 class ControlLight : public IControl
@@ -40,6 +41,7 @@ public:
     string on();
     string off();
 };
+
 
 class ControlWindow
 {
@@ -69,6 +71,34 @@ public:
 };
 
 
+class ControlHumidity : public IControl
+{
+public:
+    ControlHumidity();
+
+    string on();
+    string off();
+};
+
+class ControlSoilHumidity : public IControl
+{
+public:
+    ControlSoilHumidity();
+
+    string on();
+    string off();
+};
+
+class ControlCO2 : public IControl
+{
+public:
+    ControlCO2();
+
+    string on();
+    string off();
+};
+
+/*
 // Ïðèìåð ÄÅÊÎÐÀÒÎÐ
 class IControlUnion : public IControl
 {
@@ -95,6 +125,7 @@ public:
     string on();
     string off();
 };
+*/
 
 
 

@@ -4,7 +4,6 @@
 IControl::IControl(TypeDevice type)
 {
     this->type = type;
-    this->status = TypeStatus::OFF;
 }
 
 TypeDevice IControl::getType()
@@ -12,9 +11,26 @@ TypeDevice IControl::getType()
     return type;
 }
 
-TypeStatus IControl::getStatus()
+string IControl::getTypeToStr()
 {
-    return status;
+    switch (type)
+    {
+    case TypeDevice::TEMPERATURE:
+        return "Heater ";
+    case TypeDevice::LIGHT:
+        return "Light ";
+    case TypeDevice::HUMIDITY:
+        return "Humidifier ";
+    case TypeDevice::WINDOW:
+        return "Window ";
+    case TypeDevice::CO2:
+        return "Valve CO2 ";
+    case TypeDevice::SOILHUMIDITY:
+        return "Valve water ";
+    default:
+        break;
+    }
+    return string();
 }
 
 
@@ -25,13 +41,11 @@ ControlLight::ControlLight() : IControl(TypeDevice::LIGHT)
 
 string ControlLight::on()
 {
-    status = TypeStatus::ON;
     return "On Light! ";
 }
 
 string ControlLight::off()
 {
-    status = TypeStatus::OFF;
     return "Off Light! ";
 }
 
@@ -43,14 +57,12 @@ ControlTemperature::ControlTemperature() : IControl(TypeDevice::TEMPERATURE)
 
 string ControlTemperature::on()
 {
-    status = TypeStatus::ON;
-    return "Upper Temperature! ";
+    return "Heater On! ";
 }
 
 string ControlTemperature::off()
 {
-    status = TypeStatus::OFF;
-    return "Down Temperature! ";
+    return "Heater Off! ";
 }
 
 
@@ -63,13 +75,11 @@ AdapterControlWindow::AdapterControlWindow(ControlWindow* window) : IControl(Typ
 
 string AdapterControlWindow::on()
 {
-    status = TypeStatus::ON;
     return string("Open Window! ") + "(" + window->openness(valueOpen) + ") ";
 }
 
 string AdapterControlWindow::off()
 {
-    status = TypeStatus::OFF;
     return string("Close Window! ") + "(" + window->openness(valueClose) + ") ";
 }
 
@@ -95,7 +105,7 @@ string ControlWindow::openness(int value)
 }
 
 
-
+/*
 IControlUnion::IControlUnion(IControl* Control, TypeDevice typeControl) : IControl(typeControl)
 {
     this->DecorControl = Control;
@@ -141,4 +151,47 @@ string ControlCO2::off()
 {
     status = TypeStatus::OFF;
     return string("CO2 valve close! ");
+}
+*/
+
+ControlHumidity::ControlHumidity() : IControl(TypeDevice::HUMIDITY)
+{
+}
+
+string ControlHumidity::on()
+{
+    return "Humidifier On! ";
+}
+
+string ControlHumidity::off()
+{
+    return "Humidifier Off! ";
+}
+
+ControlCO2::ControlCO2() : IControl(TypeDevice::CO2)
+{
+}
+
+string ControlCO2::on()
+{
+    return "Valve CO2 Open! ";
+}
+
+string ControlCO2::off()
+{
+    return "Valve CO2 Close! ";
+}
+
+ControlSoilHumidity::ControlSoilHumidity() : IControl(TypeDevice::SOILHUMIDITY)
+{
+}
+
+string ControlSoilHumidity::on()
+{
+    return "Valve water Open! ";
+}
+
+string ControlSoilHumidity::off()
+{
+    return "Valve water Close! ";
 }

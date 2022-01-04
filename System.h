@@ -12,7 +12,7 @@ public:
 	virtual void makeTemperature(int count) = 0;
 	virtual void makeHumidity(int count) = 0;
 	virtual void makeCO2(int count) = 0;
-	virtual void makeSoilHumidity(int count, std::vector<int> numbersSoil) = 0;
+	virtual void makeSoilHumidity(int count) = 0;
 	virtual void makeLight(int count) = 0;
 	virtual void makeWindow(int count) = 0;
 };
@@ -25,7 +25,7 @@ public:
 	void makeTemperature(int count);
 	void makeHumidity(int count);
 	void makeCO2(int count);
-	void makeSoilHumidity(int count, std::vector<int> numbersSoil);
+	void makeSoilHumidity(int count);
 	void makeLight(int count);
 	void makeWindow(int count);
 
@@ -46,7 +46,7 @@ public:
 	void makeTemperature(int count);
 	void makeHumidity(int count);
 	void makeCO2(int count);
-	void makeSoilHumidity(int count, std::vector<int> numbersSoil);
+	void makeSoilHumidity(int count);
 	void makeLight(int count);
 	void makeWindow(int count);
 

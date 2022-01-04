@@ -84,7 +84,7 @@ void SystemSensorBuilder::makeCO2(int count)
 	return;		//Error
 }
 
-void SystemSensorBuilder::makeSoilHumidity(int count, std::vector<int> numbersSoil)
+void SystemSensorBuilder::makeSoilHumidity(int count)
 {
 	// TODO:
 }
@@ -146,9 +146,9 @@ void SystemControlBuilder::makeCO2(int count)
 	makeControl(TypeDevice::CO2, count);
 }
 
-void SystemControlBuilder::makeSoilHumidity(int count, std::vector<int> numbersSoil)
+void SystemControlBuilder::makeSoilHumidity(int count)
 {
-	// TODO:
+	makeControl(TypeDevice::SOILHUMIDITY, count);
 }
 
 void SystemControlBuilder::makeLight(int count)
@@ -201,8 +201,9 @@ void SystemDirector::makeSystemSensor(SystemBuilder* builder)
 void SystemDirector::makeSystemControl(SystemBuilder* builder)
 {
 	builder->makeTemperature(1);
-	builder->makeLight(2);
+	builder->makeLight(1);
 	builder->makeHumidity(1);
+	builder->makeSoilHumidity(1);
 	builder->makeCO2(1);
 	builder->makeWindow(1);
 }

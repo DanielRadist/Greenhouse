@@ -40,8 +40,23 @@ void SystemControl::remove(DeviceControl* Device)
 	//TODO:
 }
 
-void SystemControl::search(TypeDevice typeDevice)
+DeviceControl* SystemControl::search(TypeDevice typeDevice)
 {
+	Iterator* iter = createIterator();
+	DeviceControl* rtrn = nullptr;
+	while (iter->hasNext())			// пока не прошли все эл-ты
+	{
+		if (iter->getCurrent()->getType() == typeDevice)
+		{
+			rtrn = iter->getCurrent();
+			break;
+		}
+
+		if (iter->hasNext())
+			iter->next();
+	}
+	delete iter;
+	return rtrn;
 }
 
 
